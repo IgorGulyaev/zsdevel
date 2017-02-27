@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout>
+    <zen_all_brand_index>
+        <reference name="content">
+            <block type="core/template" name="main.brand" template="brand/main_page.phtml">
+                <block type="zen_all/brand_brand" name="eco.brand" template="brand/brand_list.phtml"/>
+            </block>
+        </reference>
+    </zen_all_brand_index>
+    <zen_all_manufactures_index>
+        <update handle="zen_all_brand_index" />
+    </zen_all_manufactures_index>
+</layout>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Zen_Footernav>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Zen_Scroll/>
+            </depends>
+        </Zen_Footernav>
+    </modules>
+</config>

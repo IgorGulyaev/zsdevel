@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Zen_Footernav
+ *
+ * @package    Zen_All
+ * @author     Zent Magento Team <>
+ * @copyright  Copyright (c) 2015 Zen http://www.zen.com
+ */
+-->
+<config>
+    <modules>
+        <Zen_Footernav>
+            <version>0.1.0</version>
+        </Zen_Footernav>
+    </modules>
+    <global>
+        <blocks>
+            <zen_footernav>
+                <class>Zen_Footernav_Block</class>
+            </zen_footernav>
+            <catalog>
+                <rewrite>
+                    <product_list>Zen_Footernav_Block_Product_List</product_list>
+                </rewrite>
+            </catalog>
+        </blocks>
+        <models>
+            <zen_footernav>
+                <class>Zen_Footernav_Model</class>
+            </zen_footernav>
+            <catalog>
+                <rewrite>
+                    <layer>Zen_Footernav_Model_Layer</layer>
+                </rewrite>
+            </catalog>
+        </models>
+    </global>
+    <frontend>
+        <routers>
+            <offers>
+                <use>standard</use>
+                <args>
+                    <module>Zen_Footernav</module>
+                    <frontName>offers</frontName>
+                </args>
+            </offers>
+        </routers>
+        <layout>
+            <updates>
+                <zen_footernav>
+                    <file>zen_footernav.xml</file>
+                </zen_footernav>
+            </updates>
+        </layout>
+    </frontend>
+</config>

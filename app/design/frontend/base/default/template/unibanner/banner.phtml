@@ -25,16 +25,16 @@ if (count($bannerGroupData) > 0):
             ->setBannerGroupCode($bannerGroupCode)->addData($this->getData())
             ->setTemplate('unibanner/effects/custom.phtml')->toHtml();
     elseif ($masterslider):
-        $template = $this->getLayout()->createBlock('banner/banner', 'eco.banner')
+        $template = $this->getLayout()->createBlock('banner/banner', 'zen.banner')
             ->setBannerGroupCode($bannerGroupCode)->addData($this->getData())
-            ->setTemplate('unibanner/effects/eco_masterslider.phtml')->toHtml();
+            ->setTemplate('unibanner/effects/zen_masterslider.phtml')->toHtml();
     else:
         switch ($preEff) {
             case 'slide':
             case 'fade' :
-                $template = $this->getLayout()->createBlock('banner/banner', 'eco.banner')
+                $template = $this->getLayout()->createBlock('banner/banner', 'zen.banner')
                     ->setBannerGroupCode($bannerGroupCode)->addData($this->getData())
-                    ->setTemplate('unibanner/effects/eco.phtml')->toHtml();
+                    ->setTemplate('unibanner/effects/zen.phtml')->toHtml();
             break;
             case 'Image Slide Show':
                 $template = $this->getLayout()->createBlock('banner/banner', 'slideshow.banner')

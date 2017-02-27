@@ -4,10 +4,10 @@ Object.extend(AW_AjaxCartProUpdaterObject, {
     updateOnActionRequest: false,
 
     beforeUpdate: function(html){
-        if($('ecomitizeModalQuickView')){
-            $('ecomitizeModalQuickView').removeClassName('in');
+        if($('zenModalQuickView')){
+            $('zenModalQuickView').removeClassName('in');
         }
-        $('ecomitizeQuickView').update();
+        $('zenQuickView').update();
         return null;
     },
     afterUpdate: function(html, selectors){

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Zen_Scroll>
+            <version>0.0.0.1</version>
+        </Zen_Scroll>
+    </modules>
+    <frontend>
+        <routers>
+            <catalog>
+                <args>
+                    <modules>
+                        <zen_scroll before="Mage_Catalog">Zen_Scroll</zen_scroll>
+                    </modules>
+                </args>
+            </catalog>
+            <catalogsearch>
+                <args>
+                    <modules>
+                        <zen_scroll before="Mage_CatalogSearch">Zen_Scroll</zen_scroll>
+                    </modules>
+                </args>
+            </catalogsearch>
+        </routers>
+        <layout>
+            <updates>
+                <zen_scroll>
+                    <file>zen_scroll.xml</file>
+                </zen_scroll>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <blocks>
+            <catalog>
+                <rewrite>
+                    <product_list>Zen_Scroll_Block_Catalog_Product_List</product_list>
+                </rewrite>
+            </catalog>
+            <page>
+                <rewrite>
+                    <html_pager>Zen_Scroll_Block_Page_Html_Pager</html_pager>
+                </rewrite>
+            </page>
+        </blocks>
+    </global>
+</config>

@@ -3,7 +3,7 @@ jQuery(document).ready(function ($) {
     var $rootNavElement = $('.nav-bar'),
         $mainPartNavElement = $('#nav'),
         $helpLinkNavElement = $('#page-help-link'),
-        $supportLinkNavElement = $('.link-ecomitize-support'),
+        $supportLinkNavElement = $('.link-zen-support'),
         $systemNavElement = $('.System'),
         menuItemsCopiedArray = [],
         resizeCounter = 0;

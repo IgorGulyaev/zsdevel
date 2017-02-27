@@ -24,8 +24,8 @@
 /vendor
 /composer.lock
 *.DS_Store
-/app/code/local/Ecomitize/Symfix
-/app/etc/modules/Ecomitize_Symfix.xml
+/app/code/local/Zen/Symfix
+/app/etc/modules/Zen_Symfix.xml
 /app/code/community/Lesti/Fix
 /app/etc/modules/Lesti_Fix.xml
 /app/code/community/Lesti/Fpc

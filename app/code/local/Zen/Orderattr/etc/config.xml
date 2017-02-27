@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Zen_Orderattr>
+            <version>1.0.0</version>
+        </Zen_Orderattr>
+    </modules>
+    <global>
+        <models>
+            <zen_orderattr>
+                <class>Zen_Orderattr_Model</class>
+            </zen_orderattr>
+            <sales>
+                <rewrite>
+                    <order_api>Zen_Orderattr_Model_Sales_Order_Api</order_api>
+                    <order_api_v2>Zen_Orderattr_Model_Sales_Order_Api</order_api_v2>
+                </rewrite>
+            </sales>
+        </models>
+    </global>
+</config>
