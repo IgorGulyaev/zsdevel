@@ -7,12 +7,12 @@ $categories = Mage::getModel('catalog/category')->getCollection()->addAttributeT
         <label for="search"><?php echo $this->__('Search:') ?></label>
         <div class="search-group">
             <input id="search" type="text" name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" placeholder="Search entire store here...">
-            <select name="category" form="search_mini_form">
-                <option><?php echo $this->__('All') ?></option>
-                <?php foreach ($categories as $category): ?>
-                    <option <?php if ($category->getData('awln_option_id') === $this->getCategory() ) { echo 'selected'; } ?> value="<?php echo $category->getData('awln_option_id')?>"><?php echo $category->getName() ?></option>
-                <?php endforeach; ?>
-            </select>
+            <!--<select name="category" form="search_mini_form">
+                <option><?php /*echo $this->__('All') */?></option>
+                <?php /*foreach ($categories as $category): */?>
+                    <option <?php /*if ($category->getData('awln_option_id') === $this->getCategory() ) { echo 'selected'; } */?> value="<?php /*echo $category->getData('awln_option_id')*/?>"><?php /*echo $category->getName() */?></option>
+                <?php /*endforeach; */?>
+            </select>-->
             <span class="search-group-btn">
                 <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Search')) ?>" class="button btn-search btn-header-search"><span><span><?php echo $this->__('Search') ?></span></span></button>
             </span>
@@ -20,7 +20,7 @@ $categories = Mage::getModel('catalog/category')->getCollection()->addAttributeT
         </div>
         <script type="text/javascript">
             //<![CDATA[
-            var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Search entire store here...')) ?>');
+            var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Search here...')) ?>');
             searchForm.initAutocomplete('<?php echo $catalogSearchHelper->getSuggestUrl() ?>', 'search_autocomplete');
             //]]>
         </script>

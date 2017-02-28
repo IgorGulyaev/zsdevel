@@ -10,7 +10,6 @@
 }
 
 .logo img {
-    margin: 0 auto;
     display: block;
     position: relative;
     max-width: 80%;
@@ -19,12 +18,12 @@
 /* before header block .header-top */
 
 header .header-top {
-    background-color: #000;
+    background-color: #efeeef;
 }
 
 header .header-top .nav > li > a,
 header .header-top .links > li > a {
-    color: #fff;
+    color: #6b0134;
 }
 
 header .header-top .nav,

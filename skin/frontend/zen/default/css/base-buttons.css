@@ -25,9 +25,11 @@ button {
     text-align: center;
     font-size: 14px;
     color: #fff;
-    border: 1px solid #31a348;
-    background-color: #31a348;
-    border-radius: 0; /* need for iphone */
+    border: 1px solid #fbad05;
+    background-color: #fbad05;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
 }
 
 .button:before {
@@ -44,8 +46,8 @@ button {
 .aw-acp-checkout:focus,
 .aw-acp-continue:not(.close):hover,
 .aw-acp-continue:not(.close):focus {
-    background-color: #292c34;
-    border-color: #292c34;
+    background-color: #ef7e04;
+    border-color: #ef7e04;
     color: #fff;
     text-decoration: none;
 }

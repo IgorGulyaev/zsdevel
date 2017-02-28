@@ -181,6 +181,9 @@
             <action method="addCss">
                 <stylesheet>css/style.css</stylesheet>
             </action>
+            <action method="addCss">
+                <stylesheet>css/theme.css</stylesheet>
+            </action>
 
             <!-- base scripts -->
 
@@ -223,6 +226,10 @@
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/masterslider.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/masonry.pkgd.min.js</name>
             </action>
             <action method="addItem">
                 <type>skin_js</type>

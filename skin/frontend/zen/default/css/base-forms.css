@@ -511,10 +511,18 @@ form[action*='loginPost'] .buttons-set a + button {
 
 .form-search .input-text {
     width: 60%;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
 }
 
 .form-search .input-text:first-child {
+    padding-right: 25px;
+    margin-right: -6px;
     border-right: 0;
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 @media (max-width: 767px) {
@@ -530,6 +538,11 @@ form[action*='loginPost'] .buttons-set a + button {
 .form-search .search-group-btn button {
     display: block;
     width: 100%;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+    border: none;
+    background: #7e003d;
 }
 
 .form-search select {

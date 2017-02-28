@@ -18,8 +18,15 @@
     white-space: nowrap;
 }
 
+.top-link-cart .name {
+    color: #282828;
+    font-size: 16px;
+}
 .top-link-cart span {
-    display: block;
+    display: inline-block;
+    color: #898787;
+    font-size: 16px;
+    text-align: left;
 }
 
 .top-link-cart:hover,

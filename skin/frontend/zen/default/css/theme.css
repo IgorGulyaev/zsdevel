@@ -1,0 +1,39 @@
+.masonri-grid {
+    display: none;
+    margin: 30px -8px 0;
+}
+.masonri-grid.visible {
+    display: block;
+}
+.masonri-item {
+    margin-bottom: 15px;
+    padding: 0 8px;
+    width: 50%;
+}
+.masonri-item__img {
+    background-position: center center;
+    background-size: cover;
+    display: block;
+    height: 520px;
+    position: relative;
+}
+.masonri-item__img span {
+    background: rgba(0, 0, 0, 0.2) none repeat scroll 0 0;
+    color: #fff;
+    font-family: "Gotham Pro","Roboto",sans-serif;
+    font-size: 20px;
+    left: 10px;
+    padding: 10px 20px;
+    position: absolute;
+    top: 10px;
+}
+.masonri-item__img:hover span {
+    background: rgba(0, 0, 0, 0.4) none repeat scroll 0 0;
+}
+
+.masonri-item.item-4 {
+    width: 100%;
+}
+.masonri-item.item-1 .masonri-item__img {
+    height: 1078px;
+}

@@ -208,7 +208,7 @@
 @media (min-width: 767px) {
 
     .navbar-nav-container {
-        background-color: #31a348;
+        border-bottom: 1px solid #80033f;
     }
 
     .navbar-nav-container .affix,
@@ -242,10 +242,12 @@
     }
 
     .navbar .navbar-nav > li > a {
-        color: #fff;
-        text-align: center;
         padding: 15px 5px;
         height: auto;
+        color: #555;
+        font-size: 24px;
+        text-align: center;
+        text-transform: uppercase;
     }
 
     .navbar .navbar-nav > .open,

@@ -1,96 +1,128 @@
+
+
 <?php
+if ( !defined('BANNER_TYPE_IMAGE') ) {
+    define('BANNER_TYPE_IMAGE',   0);
+}
+if ( !defined('BANNER_TYPE_CONTENT') ) {
+    define('BANNER_TYPE_CONTENT', 1);
+}
 $gCode = $this->getBannerGroupCode();
 $data  = $this->getDataByGroupCode($gCode);
 $gData = $data['group_data'];
 $mode  = $gData->getPreBannerEffects();
+$countShowcase = 0;
 ?>
-<?php if(count($data['banner_data'])): ?>
-    <div class="banners banners-<?php echo $gCode ?>">
-        <?php if ($data['group_data']->getSlider()): ?><div class="owl-carousel<?php if ($this->getAutoHeight() == 'true'): ?> owl-height<?php endif; ?>"><?php endif; ?>
+<?php if (count($data['banner_data'])): ?>
+    <?php if ($gCode == 'showcase') : ?>
+        <div class="line-title"><span><?php echo $this->__('Showcase') ?></span></div>
+        <div class="masonri-grid">
             <?php if ($data['group_data']->getRandom()) {shuffle($data['banner_data']);} ?>
             <?php $counter = 0; ?>
             <?php foreach ($data['banner_data'] as $banner): ?>
-                <?php if ($this->getBannerRandomCount()): ?>
-                    <?php $bannerRandomCount = $this->getBannerRandomCount() ?>
-                <?php else: ?>
-                    <?php if ($gData->getRandomCount() == 0): ?>
-                        <?php $bannerRandomCount = 999 ?>
-                    <?php else: ?>
-                        <?php $bannerRandomCount = $gData->getRandomCount() ?>
-                    <?php endif; ?>
-                <?php endif; ?>
-                <?php if (!is_null($bannerRandomCount) && $bannerRandomCount <= $counter ): ?>
+                <?php if ( !is_null( $data['group_data']->getRandomCount() ) && $data['group_data']->getRandomCount() <= $counter ): ?>
                     <?php break; ?>
                 <?php endif; ?>
                 <?php $counter++ ?>
-                <?php
-                    $type    = $banner->getBannerType();
-                    $title   = $banner->getTitle();
-                    $content = $banner->getBannerContent();
-                    $link    = $banner->getLink();
-                    $imgName = $banner->getFilename();
-                    $buttonText = $banner->getButtonText();
-                ?>
-                <div id="item-banner-<?php echo $banner->getBannerId() ?>" class="item"<?php if ($banner->getBannerBackgroundColor()): ?> style="background-color: <?php echo $banner->getBannerBackgroundColor() ?>"<?php endif; ?>>
-                    <?php if ($banner->getActiveLinkColor()): ?>
-                        <style>
-                            .banners.banners-<?php echo $gCode ?> .owl-dots > .active.item-banner-<?php echo $banner->getBannerId() ?> {
-                                color: <?php echo $banner->getActiveLinkColor() ?>!important;
-                            }
-                            <?php if ($gData->getShowContent()): ?>
-                            .banners.banners-<?php echo $gCode ?> #item-banner-<?php echo $banner->getBannerId() ?> a:hover .banner-wrapper {
-                                background-color: <?php echo $banner->getActiveLinkColor() ?>!important;
-                            }
-                            <?php endif; ?>
-                        </style>
-                    <?php endif; ?>
+                <div class="masonri-item item-<?php echo $counter; ?> <?php if ($countShowcase == 1 || $countShowcase == 4 || $countShowcase == 6 || $countShowcase == 7):
+                    echo('masonri-item--h2');
+                elseif ($countShowcase == 2):
+                    echo('masonri-item--h2 masonri-item--w2');
+                endif; ?>">
                     <?php
-                        $image = null;
-                        $path = Mage::getBaseDir('media').DS.$imgName;
-                        if (@file_exists($path) && $size = getimagesize($path)):
-                            $image = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$imgName;
-                        endif;
+                    $type = $banner->getBannerType();
+                    $title = $banner->getTitle();
+                    $link = $banner->getLink();
+                    $imgName = $banner->getFilename();
                     ?>
-                    <?php if ($type == 0): ?>
-                        <?php if ($image): ?>
-                            <a <?php echo ($link) ? sprintf('href="%s"', $link):''; ?>
-                                <?php echo ($title && $gData->getShowTitle() ? sprintf('title="%s"', $title):''); ?>
-                                <?php echo ($data['group_data']->getLinkTarget()) ? 'target="_blank"':''; ?>>
-                                <img src="<?php echo $image; ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>">
-                            </a>
-                        <?php endif; ?>
-                    <?php elseif ($type == 1) : ?>
-                            <?php if ($image): ?><img src="<?php echo $image; ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>"><?php endif; ?>
-                            <?php if ($gData->getShowTitle() || $gData->getShowContent()): ?>
-                                <div class="banner-wrapper">
-                                    <?php if ($title): ?>
-                                        <?php if ($gData->getShowTitle()): ?>
-                                            <div class="banner-title"><?php echo $title ?></div>
-                                        <?php endif; ?>
-                                    <?php endif; ?>
-                                    <?php if ($content): ?>
-                                        <?php if ($gData->getShowContent()): ?>
-                                            <div class="banner-content"><?php echo $content ?></div>
-                                        <?php endif; ?>
-                                    <?php endif; ?>
-                                    <?php if ($buttonText): ?>
-                                        <a class="button btn-banner" <?php echo ($link) ? sprintf('href="%s"', $link):''; ?>
-                                            <?php echo ($title && $gData->getShowTitle() ? sprintf('title="%s"', $title):''); ?>
-                                            <?php echo ($data['group_data']->getLinkTarget()) ? 'target="_blank"':''; ?>>
-                                            <span><?php echo $buttonText; ?></span>
-                                        </a>
-                                    <?php endif; ?>
-                                </div>
+                    <?php if ($type == BANNER_TYPE_IMAGE) :
+                        $image = null;
+                        $path = Mage::getBaseDir('media') . DS . $imgName;
+                        if (@file_exists($path) && $size = getimagesize($path)) :
+                            $image = ($size[0] > $this->getBannerImgMaxWidth() )
+                                ? $this->getResizeImage($imgName, $gCode, $this->getBannerImgMaxWidth())
+                                : Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $imgName;
+                        endif;
+                        if ($image) : ?>
+                            <?php if ($link): ?>
+                                <a class="masonri-item__img" href="<?php echo $link; ?>"
+                                   style="background-image: url(<?php echo $image; ?>);"><span><?php echo $title; ?></span></a>
+                            <?php else: ?>
+                                <div class="masonri-item__img" style="background-image: url(<?php echo $image; ?>);">
+                                    <span><?php echo $title; ?></span></div>
                             <?php endif; ?>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
+                <?php $countShowcase++ ?>
             <?php endforeach; ?>
-            <?php if ($data['group_data']->getSlider()): ?>
         </div>
-        <script type="text/javascript">
+        <script>
             jQuery(document).ready(function ($) {
-                $(window).load(function() {
-                    $('.banners.banners-<?php echo $gCode ?> .owl-carousel').owlCarousel({
+                $('.masonri-grid').masonry({itemSelector: '.masonri-item', layoutComplete: masonry_refresh()});
+                function masonry_refresh() {
+                    $('.masonri-grid').addClass('visible');
+                }
+            })
+        </script>
+    <?php else: ?>
+        <div class="banners banners-<?php echo $gCode ?>">
+
+            <?php if ($data['group_data']->getSlider() && !((int)$data['group_data']->getRandomCount() == 1)): ?><div class="owl-carousel<?php if ($this->getBannerHeight() == 'true'): ?> owl-height<?php endif; ?>"><?php endif; ?>
+
+                <?php if ($data['group_data']->getRandom()) {shuffle($data['banner_data']);} ?>
+                <?php $counter = 0; ?>
+                <?php foreach ($data['banner_data'] as $banner): ?>
+                    <?php if ( !is_null( $data['group_data']->getRandomCount() ) && $data['group_data']->getRandomCount() <= $counter ): ?>
+                        <?php break; ?>
+                    <?php endif; ?>
+                    <?php $counter++ ?>
+                    <div class="item" id="item-banner-<?php echo $banner->getBannerId() ?>"<?php if ($banner->getBannerBackgroundColor()): ?> style="background-color: <?php echo $banner->getBannerBackgroundColor() ?>"<?php endif; ?>>
+                        <?php
+                        $type    = $banner->getBannerType();
+                        $title   = $banner->getTitle();
+                        $link    = $banner->getLink();
+                        $imgName = $banner->getFilename();
+                        ?>
+                        <?php if ($type == BANNER_TYPE_IMAGE) :
+                            $image = null;
+                            $path = Mage::getBaseDir('media') . DS . $imgName;
+                            if (@file_exists($path) && $size = getimagesize($path)) :
+                                $image = ($size[0] > $this->getBannerImgMaxWidth())
+                                    ? $this->getResizeImage($imgName, $gCode,  $this->getBannerImgMaxWidth())
+                                    : Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $imgName;
+                            endif;
+                            if ($image) : ?>
+                                <a <?php echo ($link) ? sprintf('href="%s"', $link) : ''; ?>
+                                    <?php echo($title && $gData->getShowTitle() ? sprintf('title="%s"', $title) : ''); ?>
+                                    <?php echo ($link) ? 'target="_blank"' : ''; ?> class="banners-link">
+                                    <img src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
+                                    <?php if ($banner->getBannerContent() && $gData->getShowContent()): ?>
+                                        <span class="banner-wrapper">
+                                            <span>
+                                                <span class="banner-title"><?php echo $banner->getTitle(); ?></span>
+                                                <span class="banner-content"><?php echo $banner->getBannerContent(); ?></span>
+                                                <span class="banner-button">
+                                                    <?php if ($banner->getButtonText()): ?>
+                                                        <span><?php echo $banner->getButtonText(); ?></span>
+                                                    <?php else: ?>
+                                                        <?php echo $this->__('Shop Now') ?>
+                                                    <?php endif; ?>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    <?php endif; ?>
+                                </a>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+                <?php if ($data['group_data']->getSlider() && !((int)$data['group_data']->getRandomCount() == 1)): ?>
+            </div>
+            <script type="text/javascript">
+                jQuery(document).ready(function ($) {
+                    var owl = $('.banners.banners-<?php echo $gCode ?> .owl-carousel');
+                    owl.owlCarousel({
                         <?php if ($data['group_data']->getAutoScroll()): ?>
                         autoplay: true,
                         autoplayHoverPause: true,
@@ -103,22 +135,13 @@ $mode  = $gData->getPreBannerEffects();
                         <?php if ($mode == 'fade') : ?>
                         animateOut: 'fadeOut',
                         <?php endif; ?>
-                        <?php if ($this->getBannerHeight()): ?>
+                        <?php if ($this->getBannerHeight() == 'true'): ?>
                         autoHeight: true,
                         <?php endif; ?>
-                        <?php if ($this->getBannerLoop()): ?>
                         loop: <?php echo $this->getBannerLoop(); ?>,
-                        <?php endif; ?>
-                        <?php if ($this->getBannerNav()): ?>
                         nav: <?php echo $this->getBannerNav(); ?>,
-                        <?php endif; ?>
-                        <?php if ($this->getBannerDots()): ?>
                         dots: <?php echo $this->getBannerDots(); ?>,
-                        <?php endif; ?>
-                        items: <?php echo $this->getBannerCount() ? $this->getBannerCount() : 5; ?>,
-                        <?php if ($data['group_data']->getActiveItem()): ?>
-                        onInitialized : owlDots,
-                        <?php endif; ?>
+                        items: <?php echo $this->getBannerCount(); ?>,
                         <?php if ($this->getBannerResponsive() == 'true'): ?>
                         responsive: {
                             0:{
@@ -139,24 +162,13 @@ $mode  = $gData->getPreBannerEffects();
                         }
                         <?php endif; ?>
                     });
+                    <?php if ($data['group_data']->getActiveItem()): ?>
+                    $('.banners.banners-home-tabs .owl-dots > .owl-dot.item-banner-<?php echo $data['group_data']->getActiveItem() ?>').trigger('click');
+                    <?php endif; ?>
                 });
-                <?php if ($data['group_data']->getActiveItem()): ?>
-                function owlDots() {
-                    $.each($('.banners.banners-<?php echo $gCode ?> .owl-carousel .owl-item').not('.cloned').find('.item'), function (i) {
-                        var titleData = $(this).find('img').attr('title');
-                        var idData = $(this).find('img').attr('id');
-                        var paginationLinks = $('.banners.banners-<?php echo $gCode ?> .owl-dots .owl-dot span');
-                        <?php if ($gCode == 'index-banners'): ?>
-                        /* add title in dots */
-                        /*$(paginationLinks[i]).append(titleData);*/
-                        <?php endif; ?>
-                        $(paginationLinks[i]).parent().addClass(idData);
-                    });
-                }
-                $('.banners.banners-<?php echo $gCode ?> .owl-carousel .owl-dot.item-banner-<?php echo $data['group_data']->getActiveItem() ?>').trigger('click');
-                <?php endif; ?>
-            });
-        </script>
+            </script>
+        <?php endif; ?>
+        </div>
     <?php endif; ?>
-    </div>
 <?php endif; ?>
+

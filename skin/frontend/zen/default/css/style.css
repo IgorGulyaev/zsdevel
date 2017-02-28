@@ -16,7 +16,18 @@
 /**/
 
 .top-link-cart .icon-cart {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    margin-right: 26px;
+    height: 58px;
+    width: 58px;
+    background: url(../images/icons/cart.png) no-repeat center center;
+    background-size: contain;
     font-size: 22px;
+}
+.top-link-cart .icon-cart:before {
+    display: none;
 }
 
 @media (min-width: 767px) {
@@ -61,8 +72,8 @@
 }
 
 footer {
-    background-color: #000;
-    color: #fff;
+    background-color: #2f2e2f;
+    color: #8b8888;
     padding: 20px 0;
 }
 

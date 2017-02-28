@@ -9,6 +9,8 @@
     font-style: normal;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 [class^="icon-"],
 [class*=" icon-"],
 [type=checkbox] + label:before,
