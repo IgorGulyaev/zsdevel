@@ -1,6 +1,6 @@
 <?php
 function  get_categories($categories, $store_id) {
-    $array= '<ul class="level0 dropdown-menu">';
+    $array= '<ul class="dropdown-menu">';
     foreach($categories as $category) {
         if($category->hasChildren()) {
             $drop = 'dropdown';
@@ -18,10 +18,10 @@ function  get_categories($categories, $store_id) {
         $categoryId  = $category->getId();
         $caturlkey   = Mage::getModel('catalog/category')->setStoreId($store_id)->load($categoryId)->getUrlKey();
 
-        $altUrl      = $store_url.$caturlkey;
+        $altUrl      = $store_url.$caturlkey.'.html';
 
         /*$catUrl = $cat->getRequestPath();*/
-        $array .= '<li class="level'.$cat->getLevel().' '.$drop.'">'.
+        $array .= '<li class="'.$drop.'">'.
             '<a href="' .$altUrl. '" class="'.$dropToggle.'"'.$dropHover.'>' .$category->getName() . "</a>";
         if($category->hasChildren()) {
             $children = Mage::getModel('catalog/category')->getCategories($category->getId());
@@ -45,7 +45,7 @@ function  get_categories($categories, $store_id) {
                             $storeId = $store->getId();
                             if ($storeId == 1) {} else {
                                 $store_url   = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
-                                echo '<li class="dropdown-left level0 nav-1 level-top dropdown"><a href="'.$store['code'].'" class="level-top dropdown-toggle" data-hover="dropdown">'.$store->getName().'</a>';
+                                echo '<li class="dropdown"><a href="'.$store['code'].'" class="dropdown-toggle" data-hover="dropdown">'.$store->getName().'</a>';
 
                                 $rootcatId= $store->getRootCategoryId();
                                 $categories = Mage::getModel('catalog/category')->getCategories($rootcatId);
