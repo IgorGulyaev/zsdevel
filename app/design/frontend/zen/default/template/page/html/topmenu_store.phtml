@@ -11,10 +11,9 @@ function  get_categories($categories, $storeId) {
             $dropToggle = '';
             $dropHover = '';
         }
-        /*$env = Mage::getSingleton('core/app_emulation')->startEnvironmentEmulation($storeId);*/
         $cat = Mage::getModel('catalog/category')->load($category->getId());
-        $altUrl = $cat->getUrl();
-        /*Mage::getSingleton('core/app_emulation')->stopEnvironmentEmulation($env);*/
+        $rewrite = Mage::getModel('core/url_rewrite')->load($category->getId())
+        $altUrl = $rewrite->getTargetPath();
         $array .= '<li class="level'.$cat->getLevel().' '.$drop.'">'.
             '<a href="' .$altUrl. '" class="'.$dropToggle.'"'.$dropHover.'>' .$category->getName() . "</a>";
         if($category->hasChildren()) {
