@@ -1,5 +1,5 @@
 <?php
-function  get_categories($categories, $storeId) {
+function  get_categories($categories, $store_id) {
     $array= '<ul class="level0 dropdown-menu">';
     foreach($categories as $category) {
         if($category->hasChildren()) {
@@ -12,7 +12,15 @@ function  get_categories($categories, $storeId) {
             $dropHover = '';
         }
         $cat = Mage::getModel('catalog/category')->load($category->getId());
-        $altUrl = $cat->getRequestPath();
+
+        $store_url   = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+
+        $categoryId  = $category->getId();
+        $caturlkey   = Mage::getModel('catalog/category')->setStoreId($store_id)->load($categoryId)->getUrlKey();
+
+        $altUrl      = $store_url.$caturlkey;
+
+        /*$catUrl = $cat->getRequestPath();*/
         $array .= '<li class="level'.$cat->getLevel().' '.$drop.'">'.
             '<a href="' .$altUrl. '" class="'.$dropToggle.'"'.$dropHover.'>' .$category->getName() . "</a>";
         if($category->hasChildren()) {
