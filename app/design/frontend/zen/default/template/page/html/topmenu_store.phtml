@@ -6,23 +6,19 @@
                 foreach (Mage::app()->getWebsites() as $website) {
                     foreach ($website->getGroups() as $group) {
                         $stores = $group->getStores();
-                        $c = 0;
                         foreach ($stores as $store) {
-                            if ($c > 0) {
-                                echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
-                                echo '<ul>';
-                                $rootId = $store->getRootCategoryId();
-                                $collection = Mage::getModel('catalog/category')
-                                    ->getResourceCollection()
-                                    ->addAttributeToSelect('*')
-                                    ->addFieldToFilter('path', array('like' => "1/{$rootId}/%"))
-                                    ->addIsActiveFilter();
-                                foreach ($collection as $cat) {
-                                    echo '<li><a href="'.$cat->getUrl().'">'.$cat->getName().'</a></li>';
-                                }
-                                echo '</ul>';
+                            echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
+                            echo '<ul>';
+                            $rootId = $store->getRootCategoryId();
+                            $collection = Mage::getModel('catalog/category')
+                                ->getResourceCollection()
+                                ->addAttributeToSelect('*')
+                                ->addFieldToFilter('path', array('like' => "1/{$rootId}/%"))
+                                ->addIsActiveFilter();
+                            foreach ($collection as $cat) {
+                                echo '<li><a href="'.$cat->getUrl().'">'.$cat->getName().'</a></li>';
                             }
-                            $c++;
+                            echo '</ul>';
                         }
                     }
                 }
