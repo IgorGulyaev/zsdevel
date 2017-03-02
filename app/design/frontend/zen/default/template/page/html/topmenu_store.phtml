@@ -41,25 +41,24 @@
                     foreach ($website->getGroups() as $group) {
                         $stores = $group->getStores();
                         foreach ($stores as $store) {
-                            print_r(Mage::app()->getStore($store->getId())->getRootCategoryId()); die();
+                            /*print_r(Mage::app()->getStore($store->getId())->getRootCategoryId()); die();*/
                             if (!$store['code'] == 'sandbox') {
                                 echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
 
-                                $storeId = $store->getId();
-
-                                $storecategoryid = Mage::app()->getStore($storeId)->getRootCategoryId();
+                                $storecategoryid = Mage::app()->getStore($store->getId())->getRootCategoryId();
                                 $category = Mage::getModel('catalog/category')->getCollection()->addFieldToFilter('is_active',array('eq' => 1))->load();
-                                if(count($category)){
-                                    echo '<ul>';
-                                    foreach($category as $cat)
+                                foreach($category as $cat)
+                                {
+                                    if($cat->getData('level')==2 && $cat->getData('parent_id')==$storecategoryid)
                                     {
-                                        if($cat->getData('level')==2 && $cat->getData('parent_id')==$storecategoryid)
-                                        {
-                                            echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
-                                        }
+                                        echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
                                     }
-                                    echo '</ul>';
                                 }
+                                /*if(count($category)){
+                                    echo '<ul>';
+
+                                    echo '</ul>';
+                                }*/
                             }
                         }
                     }
