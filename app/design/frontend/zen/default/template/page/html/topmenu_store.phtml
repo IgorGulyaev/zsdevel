@@ -45,10 +45,6 @@
                             if (!$store['code'] == 'sandbox') {
                                 echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
 
-                                echo '<ul>';
-                                echo $this->getChildHtml('catalog.topnav.multi');
-                                echo '</ul>';
-
                                 /*$storecategoryid = Mage::app()->getStore($store->getId())->getRootCategoryId();
                                 $category = Mage::getModel('catalog/category')->getCollection()->addFieldToFilter('is_active',array('eq' => 1))->load();
                                 foreach($category as $cat)
