@@ -7,18 +7,20 @@
                     foreach ($website->getGroups() as $group) {
                         $stores = $group->getStores();
                         foreach ($stores as $store) {
-                            echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
-                            echo '<ul>';
-                            $rootId = $store->getRootCategoryId();
-                            $collection = Mage::getModel('catalog/category')
-                                ->getResourceCollection()
-                                ->addAttributeToSelect('*')
-                                ->addFieldToFilter('path', array('like' => "1/{$rootId}/%"))
-                                ->addIsActiveFilter();
-                            foreach ($collection as $cat) {
-                                echo '<li><a href="'.$cat->getUrl().'">'.$cat->getName().'</a></li>';
+                            if ($store == 1) {} else {
+                                echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
+                                echo '<ul>';
+                                $rootId = $store->getRootCategoryId();
+                                $collection = Mage::getModel('catalog/category')
+                                    ->getResourceCollection()
+                                    ->addAttributeToSelect('*')
+                                    ->addFieldToFilter('path', array('like' => "1/{$rootId}/%"))
+                                    ->addIsActiveFilter();
+                                foreach ($collection as $cat) {
+                                    echo '<li><a href="'.$cat->getUrl().'">'.$cat->getName().'</a></li>';
+                                }
+                                echo '</ul>';
                             }
-                            echo '</ul>';
                         }
                     }
                 }
