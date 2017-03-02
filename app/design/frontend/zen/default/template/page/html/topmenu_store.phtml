@@ -41,7 +41,6 @@
                     foreach ($website->getGroups() as $group) {
                         $stores = $group->getStores();
                         foreach ($stores as $store) {
-                            /*print_r(Mage::app()->getStore($store->getId())->getRootCategoryId()); die();*/
                             if (!$store['code'] == 'sandbox') {
                                 echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
 
