@@ -25,7 +25,7 @@ function  get_categories($categories, $store_id) {
             '<a href="' .$altUrl. '" class="'.$dropToggle.'"'.$dropHover.'>' .$category->getName() . "</a>";
         if($category->hasChildren()) {
             $children = Mage::getModel('catalog/category')->getCategories($category->getId());
-            $array .=  get_categories($children);
+            $array .=  get_categories($children, $store_id);
         }
         $array .= '</li>';
     }
