@@ -11,7 +11,8 @@
                                 echo '<li class="dropdown-left level0 nav-1 level-top dropdown"><a href="'.$store['code'].'" class="level-top dropdown-toggle" data-hover="dropdown">'.$store->getName().'</a>';
                                 echo '<ul class="level0 dropdown-menu">';
 
-                                echo $this->getChildHtml('catalog.topnav.multi');
+                                $_menu = $this->getHtml('level-top');
+                                echo $_menu;
 
                                 /*$rootId = $store->getRootCategoryId();
                                 $collection = Mage::getModel('catalog/category')

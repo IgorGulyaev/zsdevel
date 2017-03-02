@@ -68,8 +68,7 @@
             <block type="core/template" name="header.page.html.account.nav" as="topLinks" template="page/html/account-nav.phtml">
                 <block type="customer/form_login" name="header.customer.form.mini.login" as="header_customer_form_mini_login" template="customer/form/mini.login.phtml"/>
             </block>
-            <block type="core/template" name="top.menu.store" as="topMenuStore" template="page/html/topmenu_store.phtml">
-                <block type="page/html_topmenu" name="catalog.topnav.multi" template="page/html/topmenu.phtml"/>
+            <block type="html_topmenustore" name="top.menu.store" as="topMenuStore" template="page/html/topmenu_store.phtml">
             </block>
         </reference>
 
