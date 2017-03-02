@@ -1,5 +1,5 @@
 <?php
-function  get_categories($categories, $store_id) {
+function  get_categories($categories, $store_id, $parentUrl) {
     $array= '<ul class="dropdown-menu">';
     foreach($categories as $category) {
         if($category->hasChildren()) {
@@ -18,14 +18,14 @@ function  get_categories($categories, $store_id) {
         $categoryId  = $category->getId();
         $caturlkey   = Mage::getModel('catalog/category')->setStoreId($store_id)->load($categoryId)->getUrlKey();
 
-        $altUrl      = $store_url.$caturlkey.'.html';
+        $altUrl      = $store_url.$parentUrl.$caturlkey.'.html';
 
         /*$catUrl = $cat->getRequestPath();*/
         $array .= '<li class="'.$drop.'">'.
             '<a href="' .$altUrl. '" class="'.$dropToggle.'"'.$dropHover.'>' .$category->getName() . "</a>";
         if($category->hasChildren()) {
             $children = Mage::getModel('catalog/category')->getCategories($category->getId());
-            $array .=  get_categories($children, $store_id);
+            $array .=  get_categories($children, $store_id, $caturlkey);
         }
         $array .= '</li>';
     }
