@@ -13,7 +13,7 @@ function  get_categories($categories, $store_id) {
         }
         $cat = Mage::getModel('catalog/category')->load($category->getId());
 
-        $store_url   = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+        $store_url   = Mage::app()->getStore($store_id)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
 
         $categoryId  = $category->getId();
         $caturlkey   = Mage::getModel('catalog/category')->setStoreId($store_id)->load($categoryId)->getUrlKey();
