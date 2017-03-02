@@ -239,7 +239,7 @@ jQuery(document).ready(function ($) {
                 $('body').css('padding-top', 0);
             });
         } else if(window.matchMedia('(min-width: 767px)').matches) {
-            $('[data-hover="dropdown"]').dropdownHover();
+            //$('[data-hover="dropdown"]').dropdownHover();
             $('.navbar').on('affix.bs.affix affix-top.bs.affix', function (e) {
                 var padding = e.type === 'affix' ? $(this).height() : '';
                 $('body').css('padding-top', padding);
