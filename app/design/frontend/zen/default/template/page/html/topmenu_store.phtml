@@ -1,5 +1,5 @@
 <?php
-function  get_categories($categories) {
+function  get_categories($categories, $storeId) {
     $array= '<ul class="level0 dropdown-menu">';
     foreach($categories as $category) {
         if($category->hasChildren()) {
@@ -11,9 +11,12 @@ function  get_categories($categories) {
             $dropToggle = '';
             $dropHover = '';
         }
+        $env = Mage::getSingleton('core/app_emulation')->startEnvironmentEmulation($storeId);
         $cat = Mage::getModel('catalog/category')->load($category->getId());
+        $altUrl = $cat->getUrl();
+        Mage::getSingleton('core/app_emulation')->stopEnvironmentEmulation($env);
         $array .= '<li class="level'.$cat->getLevel().' '.$drop.'">'.
-            '<a href="' .$cat->getUrl(). '" class="'.$dropToggle.'"'.$dropHover.'>' .$category->getName() . "</a>";
+            '<a href="' .$altUrl. '" class="'.$dropToggle.'"'.$dropHover.'>' .$category->getName() . "</a>";
         if($category->hasChildren()) {
             $children = Mage::getModel('catalog/category')->getCategories($category->getId());
             $array .=  get_categories($children);
@@ -41,7 +44,7 @@ function  get_categories($categories) {
                                 $rootcatId= $store->getRootCategoryId();
                                 $categories = Mage::getModel('catalog/category')->getCategories($rootcatId);
 
-                                echo  get_categories($categories);
+                                echo  get_categories($categories, $storeId);
 
                                 /*$rootId = $store->getRootCategoryId();
                                 $collection = Mage::getModel('catalog/category')
