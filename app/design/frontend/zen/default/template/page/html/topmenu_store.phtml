@@ -8,7 +8,7 @@
                         $stores = $group->getStores();
                         $c = 0;
                         foreach ($stores as $store) {
-                            if (!$c == 0) {
+                            if ($c > 0) {
                                 echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
                                 echo '<ul>';
                                 $rootId = $store->getRootCategoryId();
