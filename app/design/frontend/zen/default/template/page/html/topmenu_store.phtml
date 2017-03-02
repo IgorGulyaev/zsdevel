@@ -1,6 +1,6 @@
 <?php
 function  get_categories($categories) {
-    $array= '<ul class="dropdown-menu">';
+    $array= '<ul class="level0 dropdown-menu">';
     foreach($categories as $category) {
         if($category->hasChildren()) {
             $drop = 'dropdown';
