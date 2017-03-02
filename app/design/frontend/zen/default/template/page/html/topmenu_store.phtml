@@ -14,10 +14,7 @@
                             $category = Mage::getModel('catalog/category')->getCollection()->addFieldToFilter('is_active',array('eq' => 1))->load();
                             foreach($category as $cat)
                             {
-                                if($cat->getData('level')==2 && $cat->getData('parent_id')==$storecategoryid)
-                                {
-                                    echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
-                                }
+                                echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
                             }
                             echo '</ul>';
                             /*if (!$store['code'] == 'sandbox') {
