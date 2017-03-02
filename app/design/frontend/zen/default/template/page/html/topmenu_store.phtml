@@ -41,10 +41,9 @@
                     foreach ($website->getGroups() as $group) {
                         $stores = $group->getStores();
                         foreach ($stores as $store) {
-                            var_dump($store); die();
-                            if (!$store->getCode() == 'sandbox') {
-                                echo '<li><a href="'.$store->getCode().'">'.$store->getName().'</a></li>';
-                            }
+                            echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
+                            /*if (!$store->getCode() == 'sandbox') {
+                            }*/
                         }
                     }
                 }
