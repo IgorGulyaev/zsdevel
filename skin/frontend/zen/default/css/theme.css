@@ -8,13 +8,13 @@
 .masonri-item {
     margin-bottom: 15px;
     padding: 0 8px;
-    width: 50%;
+    width: 33.333333%;
 }
 .masonri-item__img {
     background-position: center center;
     background-size: cover;
     display: block;
-    height: 520px;
+    height: 346px;
     position: relative;
 }
 .masonri-item__img span {
@@ -32,8 +32,9 @@
 }
 
 .masonri-item.item-4 {
-    width: 100%;
+    width: 66.666666%;
 }
-.masonri-item.item-1 .masonri-item__img {
-    height: 1078px;
+
+.masonri-item.item-1  .masonri-item__img {
+    height: 700px;
 }

@@ -179,6 +179,9 @@
                 <stylesheet>css/base-hide.css</stylesheet>
             </action>
             <action method="addCss">
+                <stylesheet>css/gridstack.min.css</stylesheet>
+            </action>
+            <action method="addCss">
                 <stylesheet>css/style.css</stylesheet>
             </action>
             <action method="addCss">
@@ -230,6 +233,10 @@
             <action method="addItem">
                 <type>skin_js</type>
                 <name>js/masonry.pkgd.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/gridstack.min.js</name>
             </action>
             <action method="addItem">
                 <type>skin_js</type>

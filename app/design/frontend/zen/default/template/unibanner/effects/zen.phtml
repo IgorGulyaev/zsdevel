@@ -15,7 +15,6 @@ $countShowcase = 0;
 ?>
 <?php if (count($data['banner_data'])): ?>
     <?php if ($gCode == 'showcase') : ?>
-        <div class="line-title"><span><?php echo $this->__('Showcase') ?></span></div>
         <div class="masonri-grid">
             <?php if ($data['group_data']->getRandom()) {shuffle($data['banner_data']);} ?>
             <?php $counter = 0; ?>
