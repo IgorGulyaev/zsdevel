@@ -37,7 +37,6 @@ function  get_categories($categories) {
                             if ($storeId == 1) {} else {
                                 $store_url   = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
                                 echo '<li class="dropdown-left level0 nav-1 level-top dropdown"><a href="'.$store['code'].'" class="level-top dropdown-toggle" data-hover="dropdown">'.$store->getName().'</a>';
-                                echo '<ul class="level0 dropdown-menu">';
 
                                 $rootcatId= $store->getRootCategoryId();
                                 $categories = Mage::getModel('catalog/category')->getCategories($rootcatId);
@@ -78,7 +77,6 @@ function  get_categories($categories) {
                                         echo '<li class="level-'.$cat->getLevel().'"><a href="'.$altUrl.'">'.$cat->getName().'</a></li>';
                                     }
                                 }*/
-                                echo '</ul>';
                                 echo '</li>';
                             }
                         }
