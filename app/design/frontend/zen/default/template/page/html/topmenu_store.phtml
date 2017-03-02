@@ -41,7 +41,7 @@
                     foreach ($website->getGroups() as $group) {
                         $stores = $group->getStores();
                         foreach ($stores as $store) {
-                            /*print_r($store->getId()); die();*/
+                            print_r(Mage::app()->getStore($store->getId())->getRootCategoryId()); die();
                             if (!$store['code'] == 'sandbox') {
                                 echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
 
@@ -49,7 +49,7 @@
 
                                 $storecategoryid = Mage::app()->getStore($storeId)->getRootCategoryId();
                                 $category = Mage::getModel('catalog/category')->getCollection()->addFieldToFilter('is_active',array('eq' => 1))->load();
-                                if($category){
+                                if(count($category)){
                                     echo '<ul>';
                                     foreach($category as $cat)
                                     {
