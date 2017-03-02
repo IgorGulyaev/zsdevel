@@ -41,11 +41,11 @@
                     foreach ($website->getGroups() as $group) {
                         $stores = $group->getStores();
                         foreach ($stores as $store) {
-                            /*print_r($store); die();*/
+                            print_r($store->getId()); die();
                             if (!$store['code'] == 'sandbox') {
                                 echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
 
-                                $storeId = $store['default_store_id'];
+                                $storeId = $store->getId();
 
                                 $storeEntity = Mage::getModel('core/store')->load($storeId);
 
