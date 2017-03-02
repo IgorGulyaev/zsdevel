@@ -8,9 +8,9 @@
                         $stores = $group->getStores();
                         foreach ($stores as $store) {
                             echo $store->getId();
-                            /*if (!$store['code'] == 'sandbox') {
+                            if (!$store->getId(1)) {
                                 echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
-                            }*/
+                            }
                         }
                     }
                 }
