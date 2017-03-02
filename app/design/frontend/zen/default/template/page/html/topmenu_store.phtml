@@ -37,7 +37,7 @@
                                             $subId  = $objsub->getId();
                                             $subEntity   = Mage::getModel('catalog/category')->setStoreId($store->getId())->load($subId);
                                             $suburlkey   = $subEntity->getUrlKey();
-                                            $altSubUrl   = $altUrl.$suburlkey;
+                                            $altSubUrl   = $altUrl.'/'.$suburlkey;
                                             echo '<li class="level'.$cat->getLevel().' nav-2 dropdown"><a href="'.$altSubUrl.'">'.$_child->getName().'</a></li>';
                                         }
                                         echo '</ul>';
