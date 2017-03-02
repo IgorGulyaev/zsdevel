@@ -38,7 +38,7 @@
                                             $subEntity   = Mage::getModel('catalog/category')->setStoreId($store->getId())->load($subId);
                                             $suburlkey   = $subEntity->getUrlKey();
                                             $altSubUrl   = $altUrl.$suburlkey;
-                                            echo '<li class="level'.$cat->getLevel().' nav-2 dropdown"><a href="'.$altSubUrl.'" class="level-top dropdown-toggle" data-hover="dropdown">'.$cat->getName().'</a></li>';
+                                            echo '<li class="level'.$cat->getLevel().' nav-2 dropdown"><a href="'.$altSubUrl.'">'.$child->getName().'</a></li>';
                                         }
                                         echo '</ul>';
                                         echo '</li>';
