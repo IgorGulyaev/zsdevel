@@ -51,7 +51,11 @@
                 </div>
             </div>
         </div>
+        <?php if (Mage::app()->getStore()->getCode() == 'sandbox'): ?>
+        <?php echo $this->getChildHtml('topMenuStore'); ?>
+        <?php else: ?>
         <?php echo $this->getChildHtml('topMenu'); ?>
+        <?php endif; ?>
     </header>
 <?php echo $this->getChildHtml('topContainer'); ?>
 
