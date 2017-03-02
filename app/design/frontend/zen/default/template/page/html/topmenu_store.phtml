@@ -47,9 +47,7 @@
 
                                 $storeId = $store->getId();
 
-                                $storeEntity = Mage::getModel('core/store')->load($storeId);
-
-                                $rootcatID = $storeEntity->getRootCategoryId();
+                                $rootcatID = Mage::app()->getStore()->getRootCategoryId($storeId);
 
                                 $productCollection = Mage::getResourceModel('catalog/product_collection')
                                     ->joinField('category_id','catalog/category_product','category_id','product_id=entity_id',null,'left')
@@ -57,6 +55,7 @@
                                     ->addAttributeToSelect('*');
 
                                 $productCollection->load();
+                                print_r($productCollection); die();
                             }
                         }
                     }
