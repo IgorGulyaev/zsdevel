@@ -279,10 +279,16 @@
         min-width: 100%;
     }
 
+    .dropdown-menu .dropdown-menu {
+        position: static;
+
+    }
+
     .dropdown-menu.dropdown-wraper {
         min-width: 600px;
     }
 
+    .navbar .navbar-nav li:hover > .dropdown-menu,
     .open > .dropdown-menu.dropdown-wraper > .dropdown-wraper-inner > .dropdown-menu {
         display: block;
     }
