@@ -41,9 +41,37 @@
                     foreach ($website->getGroups() as $group) {
                         $stores = $group->getStores();
                         foreach ($stores as $store) {
-                            echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
-                            /*if (!$store->getCode() == 'sandbox') {
-                            }*/
+                            if (!$store['code'] == 'sandbox') {
+                                echo '<li><a href="'.$store['code'].'">'.$store->getName().'</a></li>';
+
+                                $rootCatId = $store['group_id'];
+
+                                $html = '';
+                                $allCats = Mage::getModel('catalog/category')->getCollection()
+                                    ->addAttributeToSelect('*')
+                                    ->addAttributeToFilter('is_active','1')
+                                    ->addAttributeToFilter('include_in_menu','1')
+                                    ->addAttributeToFilter('parent_id',array('eq' => $parentId));
+
+                                $class = ($isChild) ? "sub-cat-list" : "cat-list";
+                                $html .= '<ul class="'.$class.'">';
+                                $children = Mage::getModel('catalog/category')->getCategories(7);
+                                foreach ($children as $category) {
+                                    {
+                                        $html .= '<li>'.$category->getName()."";
+                                        $subcats = $category->getChildren();
+                                        if($subcats != ''){
+                                            $html .= getTreeCategories($category->getId(), true);
+                                        }
+                                        $html .= '</li>';
+                                    }
+                                    $html .= '</ul>';
+                                    return $html;
+                                }
+                                $catlistHtml = getTreeCategories($rootCatId, false);
+
+                                echo $catlistHtml;
+                            }
                         }
                     }
                 }
