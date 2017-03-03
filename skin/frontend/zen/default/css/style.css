@@ -38,8 +38,10 @@
 
 .index-banners .item img {
     display: block;
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
+    max-height: 40vw;
+    object-fit: cover;
 }
 
 .index-banners .owl-nav {
