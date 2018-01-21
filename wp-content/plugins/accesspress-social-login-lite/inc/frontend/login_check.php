@@ -7,18 +7,6 @@ if( !class_exists( 'APSL_Lite_Login_Check_Class' ) ) {
         //constructor
         function __construct() {
 
-            // if(isset($_REQUEST['error']) || isset($_REQUEST['denied']) || isset($_REQUEST['oauth_problem'])){
-            //    $_SESSION['apsl_login_error_flag'] = 1;
-            //    if(isset($_REQUEST['redirect_to'])){
-            //     $redirect_to = $_REQUEST['redirect_to'];
-            //     echo "<script> window.location.href='$redirect_to'; </script>";
-            //     // APSL_Functions::redirect($_REQUEST['redirect_to']);
-            //    }else{
-            //     echo "You have access denied. Please reauthorize the app to access the login with this site.";
-            //    }
-            //    die();
-            // }
-
             if( isset( $_GET['apsl_login_id'] ) ) {
                 if( isset( $_REQUEST['state'] ) ) {
                     parse_str( base64_decode( $_REQUEST['state'] ), $state_vars );
@@ -80,7 +68,13 @@ if( !class_exists( 'APSL_Lite_Login_Check_Class' ) ) {
                         die();
                     }
                     $_SESSION['user_details']= $result;
-                    self::creatUser( $result->username, $result->email );
+                    
+                    // use FB id as username if sanitized username is empty
+                    $sanitized_user_name = sanitize_user( $result->username, true );
+                    if ( empty( $sanitized_user_name ) ) {
+                    $sanitized_user_name = $result->deuid;
+                    }
+                    $user_Id = self::creatUser( $sanitized_user_name, $result->email );
                     $user_row = self:: getUserByMail( $result->email );
                     $id = $user_row->ID;
                     $result = $result;
@@ -132,20 +126,20 @@ if( !class_exists( 'APSL_Lite_Login_Check_Class' ) ) {
             $config = array('app_id' => $options['apsl_facebook_settings']['apsl_facebook_app_id'], 'app_secret' => $options['apsl_facebook_settings']['apsl_facebook_app_secret'], 'default_graph_version' => 'v2.4', 'persistent_data_handler' => 'session' );
             include( APSL_PLUGIN_DIR . 'facebook/autoload.php' );
             $fb = new Facebook\Facebook( $config );
-            
-            $encoded_url = isset( $_GET['redirect_to'] ) ? $_GET['redirect_to'] : '';
-            if( isset( $encoded_url ) && $encoded_url != '' ) {
-                $callback = $callBackUrl . 'apsl_login_id' . '=facebook_check&redirect_to=' . $encoded_url;
-            }
-            else {
-                $callback = $callBackUrl . 'apsl_login_id' . '=facebook_check';
-            }
-            
+
+            $callback = $callBackUrl . 'apsl_login_id' . '=facebook_check';
+
             if( $action == 'login' ) {
                 // Well looks like we are a fresh dude, login to Facebook!
                 $helper = $fb->getRedirectLoginHelper();
                 $permissions = array('email', 'public_profile'); // optional
                 $loginUrl = $helper->getLoginUrl( $callback, $permissions );
+
+                $encoded_url = isset( $_GET['redirect_to'] ) ? $_GET['redirect_to'] : '';
+                if( isset( $encoded_url ) && $encoded_url != '' ) {
+                    setcookie("apsl_login_redirect_url", $encoded_url, time()+3600);
+                    // $callback = $callBackUrl . 'apsl_login_id' . '=facebook_check&redirect_to=' . $encoded_url;
+                }
                 $this->redirect( $loginUrl );
             }
             else {
@@ -161,7 +155,7 @@ if( !class_exists( 'APSL_Lite_Login_Check_Class' ) ) {
                     // Trick below will avoid "Cross-site request forgery validation failed. Required param "state" missing." from Facebook
                     $_SESSION['FBRLH_state'] = $_REQUEST['state'];
                     try {
-                        $accessToken = $helper->getAccessToken();
+                        $accessToken = $helper->getAccessToken($callback);
                     }
                     catch( Facebook\Exceptions\FacebookResponseException $e ) {
                         // When Graph returns an error
@@ -623,10 +617,10 @@ if( !class_exists( 'APSL_Lite_Login_Check_Class' ) ) {
             $options = get_option( APSL_SETTINGS );
             if( $options['apsl_send_email_notification_options'] == 'yes' ) {
                 if (version_compare(get_bloginfo('version'), '4.3.1', '>=')){
-                        wp_new_user_notification( $user_id, $deprecated = null, $notify = 'both' );
-                    }else{
-                        wp_new_user_notification( $user_id, $random_password );
-                    }
+                    wp_new_user_notification( $user_id, $deprecated = null, $notify = 'both' );
+                }else{
+                    wp_new_user_notification( $user_id, $random_password );
+                }
             }
             return $user_id;
         }
@@ -648,7 +642,7 @@ if( !class_exists( 'APSL_Lite_Login_Check_Class' ) ) {
             $current_url_an = get_permalink();
             $reauth = empty( $_REQUEST['reauth'] ) ? false : true;
             if( $reauth )wp_clear_auth_cookie();
-
+            
             if( isset( $_REQUEST['redirect_to'] ) ) {
                 $redirect_to = $_REQUEST['redirect_to'];
                 // Redirect to https if user wants ssl
@@ -657,7 +651,7 @@ if( !class_exists( 'APSL_Lite_Login_Check_Class' ) ) {
             else {
                 $redirect_to = admin_url();
             }
-            if( !isset( $secure_cookie ) && is_ssl() && force_ssl_login() && !force_ssl_admin() &&( 0 !== strpos( $redirect_to, 'https' ) ) &&( 0 === strpos( $redirect_to, 'http' ) ) )$secure_cookie = false;
+            if( !isset( $secure_cookie ) && is_ssl() && !force_ssl_admin() &&( 0 !== strpos( $redirect_to, 'https' ) ) &&( 0 === strpos( $redirect_to, 'http' ) ) )$secure_cookie = false;
             // If cookies are disabled we can't log in even with a valid user+pass
             if( isset( $_POST['testcookie'] ) && empty( $_COOKIE[TEST_COOKIE] ) )$user = new WP_Error( 'test_cookie', __( "<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href='http://www.google.com/cookies.html'>enable cookies</a> to use WordPress." ) );
             else $user = wp_signon( '', isset( $secure_cookie ) );
@@ -698,6 +692,8 @@ if( !class_exists( 'APSL_Lite_Login_Check_Class' ) ) {
             }
             $redirect_to = $user_login_url;
             $redirect_to = apply_filters( 'login_redirect', $redirect_to );
+            $redirect_to = urldecode($_COOKIE["apsl_login_redirect_url"]);
+            // echo "<script> window.close(); window.opener.location.href='$redirect_to'; </script>";
             wp_safe_redirect( $redirect_to );
             exit();
         }

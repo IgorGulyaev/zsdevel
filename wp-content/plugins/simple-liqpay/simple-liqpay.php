@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Simple LiqPay
 Plugin URI:
 Description: LiqPay gateway for WooCommerce
-Version: 1.6
+Version: 1.7
 Author: Alex Shandor
 Author URI: http://pupuga.net
 */
@@ -17,7 +17,7 @@ function woocommerce_init() {
 
     class WC_Gateway_Liqpay extends WC_Payment_Gateway
     {
-        private $_checkout_url = 'https://www.liqpay.com/api/checkout';
+        private $_checkout_url = 'https://www.liqpay.ua/api/checkout';
         protected $_supportedCurrencies = array('EUR','UAH','USD','RUB','RUR');
 
         public function __construct() {

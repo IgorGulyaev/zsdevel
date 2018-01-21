@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
   Plugin Name: Ultimate Form Builder Lite
   Plugin URI:  https://accesspressthemes.com/wordpress-plugins/ultimate-form-builder-lite/
   Description: A plugin to build any type of forms
-  Version:     1.3.4
+  Version:     1.3.7
   Author:      AccessPress Themes
   Author URI:  http://accesspressthemes.com
   License:     GPL2
@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
  * Necessary Constants for plugin
  */
 global $wpdb;
-defined( 'UFBL_VERSION' ) or define( 'UFBL_VERSION', '1.3.4' ); //plugin version
+defined( 'UFBL_VERSION' ) or define( 'UFBL_VERSION', '1.3.7' ); //plugin version
 defined( 'UFBL_SLUG' ) or define( 'UFBL_SLUG', 'ufbl' ); //plugin admin slug
 defined( 'UFBL_TD' ) or define( 'UFBL_TD', 'ultimate-form-builder-lite' ); //plugin's text domain
 defined( 'UFBL_IMG_DIR' ) or define( 'UFBL_IMG_DIR', plugin_dir_url( __FILE__ ) . 'images' ); //plugin image directory
@@ -150,7 +150,7 @@ if ( !class_exists( 'UFBL_Class' ) ) {
 				if ( $data['form_row'] != null ) {
 					$this->library->load_view( 'backend/form-builder', $data );
 				} else {
-					die( __( 'No form found for this form id.Please go back and create a new form.', 'ultimate-form-builder-lite' ) );
+					echo  __( 'No form found for this form id.Please go back and create a new form.', 'ultimate-form-builder-lite' );
 				}
 			} else {
 				$forms = $this->model->get_all_forms();

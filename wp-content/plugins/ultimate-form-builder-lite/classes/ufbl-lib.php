@@ -88,7 +88,7 @@ if ( !class_exists( 'UFBL_Lib' ) ) {
 					$form_data[$val['name']] = $val['value'];
 				}
 			}
-			$form_id = sanitize_text_field( $form_data['form_id'] );
+			$form_id = intval(sanitize_text_field( $form_data['form_id'] ));
 			$form_temp_data = $form_data;
 			$form_row = UFBL_Model::get_form_detail( $form_id );
 			$form_detail = maybe_unserialize( $form_row['form_detail'] );

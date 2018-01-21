@@ -90,7 +90,7 @@ if (isset($_POST['frm_es_display']) && $_POST['frm_es_display'] == 'yes') {
 							<tr class="<?php if ($i&1) { echo 'alternate'; } else { echo ''; } ?>">
 								<td>
 									<?php
-									$template = es_cls_compose::es_template_select($data['es_note_templ']);
+									$template = es_cls_templates::es_template_select($data['es_note_templ']);
 									if (count($template) > 0) {
 										echo $template['es_templ_heading'];
 									}
@@ -149,6 +149,4 @@ if (isset($_POST['frm_es_display']) && $_POST['frm_es_display'] == 'yes') {
 			<input type="hidden" name="frm_es_display" value="yes"/>
 		</form>
 	</div>
-	<div style="height:10px;"></div>
-	<p class="description"><?php echo ES_OFFICIAL; ?></p>
 </div>

@@ -2,9 +2,9 @@
 Contributors: Access Keys
 Tags: social count, social counter, social counters, social media counters, social media, social network, social profiles counter, social profile count, social profile, social icons, social icon counter
 Donate link: http://accesspressthemes.com/donation/
-Requires at least: 4.0
-Tested up to: 4.7
-Stable tag: 1.7.1
+Requires at least: 4.5
+Tested up to: 4.8
+Stable tag: 1.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,13 @@ Once you install the plugin , you can check some general documentation about how
 5. Backend Cache Settings Section
 
 == Changelog ==
+= 1.7.3 =
+* Changed field type for cache settings from text to number
+
+= 1.7.2 = 
+* Removed notice for Youtube counter
+* Compatibility check for version 4.8
+
 = 1.7.1 =
 * Done the bug fixings for the facebook followers counter.
 

@@ -176,9 +176,6 @@
         <!--Youtube-->
         <div class="apsc-option-outer-wrapper">
             <h4><?php _e('Youtube', 'accesspress-social-counter') ?></h4>
-            <div class="apsc-extra-note">
-          <p><?php _e('Note: We have updated the functionality to work with youtube API v3 for automatic count update. So please fill the necessary credentials below.','accesspress-social-counter')?></p>
-        </div>
             <div class="apsc-option-inner-wrapper">
                 <label><?php _e('Display Counter', 'accesspress-social-counter') ?></label>
                 <div class="apsc-option-field"><label><input type="checkbox" name="social_profile[youtube][active]" value="1" class="apsc-counter-activation-trigger" <?php if(isset($apsc_settings['social_profile']['youtube']['active'])){?>checked="checked"<?php } ?>/><?php _e('Show/Hide', 'accesspress-social-counter'); ?></label></div>

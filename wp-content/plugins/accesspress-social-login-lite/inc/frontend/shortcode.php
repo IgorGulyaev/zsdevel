@@ -30,8 +30,34 @@ if ( is_user_logged_in() ) {
     ?><div class="user-login"><?php _e('Welcome', 'accesspress-social-login-lite'); ?> <b><?php echo $user_info; ?></b>&nbsp;|&nbsp;<a href="<?php echo $user_logout_url; ?>" title="<?php _e('Logout', 'accesspress-social-login-lite'); ?>"><?php _e('Logout', 'accesspress-social-login-lite'); ?></a></div>
     <?php
 } else {
-    $current_url = APSL_Lite_Login_Check_Class:: curPageURL();
-    $encoded_url = urlencode( $current_url );
+    if( isset( $options['apsl_custom_login_redirect_options'] ) && $options['apsl_custom_login_redirect_options'] != '' ) {
+    if( $options['apsl_custom_login_redirect_options'] == 'home' ) {
+        $user_login_url = home_url();
+    }
+    else if( $options['apsl_custom_login_redirect_options'] == 'current_page' ) {
+        if ( !empty( $_GET['redirect'] ) )
+            $current_url = $_GET['redirect'];
+        else
+            $current_url = APSL_Lite_Login_Check_Class::curPageURL();
+        
+        $user_login_url = $current_url;
+    }
+    else if( $options['apsl_custom_login_redirect_options'] == 'custom_page' ) {
+        if( $options['apsl_custom_login_redirect_link'] != '' ) {
+            $login_page = $options['apsl_custom_login_redirect_link'];
+            $user_login_url = $login_page;
+        }
+        else {
+            $user_login_url = home_url();
+        }
+    }
+}else {
+    $user_login_url = home_url();
+}
+
+// $redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
+
+$encoded_url = urlencode( $user_login_url );
     $theme = $options['apsl_icon_theme'];
     ?>
     <div class='apsl-login-networks theme-<?php echo $theme; ?> clearfix'>

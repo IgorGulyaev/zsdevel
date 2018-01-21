@@ -2,9 +2,9 @@
 Contributors: Access Keys
 Tags: contact form, form builder, form, forms, contact forms, enquiry forms, form manager, email form, lead form, email, database store form, form entry, form entries, email forms
 Donate link: http://accesspressthemes.com/donation/
-Requires at least: 4.0
-Tested up to: 4.7
-Stable tag: 1.3.4
+Requires at least: 4.5
+Tested up to: 4.8
+Stable tag: 1.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ Contact Forms | Subscription Forms | Enquiry/quote Forms - build any type of unl
 == Description ==
 [Homepage](https://accesspressthemes.com) | [Demo](http://demo.accesspressthemes.com/wordpress-plugins/ultimate-form-builder-lite/) | [Documentation](https://accesspressthemes.com/documentation/documentation-plugin-instruction-ultimate-form-builder-lite/) | [Support](https://accesspressthemes.com/support)
 
-Tested with WordPress 4.7
+Tested with WordPress 4.8
 
 <strong>Ultimate Form Builder Lite</strong>  is a <strong>FREE WordPress Plugin</strong> which allows you to create various contact forms with drag and drop form builder. Its fun because - you can create, customize and build the beautiful forms for your site on your own, receive contact email on any desired email address and store the form entries in your database which can be exported to CSV for your use via plugin's backend.
 
@@ -151,6 +151,15 @@ Once you install the plugin , you can check some general documentation about how
 10. Backend Entry Detail
 
 == Changelog ==
+= 1.3.7 = 
+* Fixed security bugs reported by WordFence Security Team and Few plugin users 
+
+= 1.3.6 = 
+* Added a fallback message for invalid form id in the form edit page 
+
+= 1.3.5 = 
+* WordPress version 4.8 compatibility check 
+
 = 1.3.4 = 
 * Fixed found out XSS issues 
 

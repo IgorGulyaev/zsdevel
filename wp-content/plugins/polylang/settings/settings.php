@@ -39,8 +39,8 @@ class PLL_Settings extends PLL_Admin_Base {
 		add_action( 'admin_init', array( $this, 'register_settings_modules' ) );
 
 		// adds screen options and the about box in the languages admin panel
-		add_action( 'load-toplevel_page_mlang',  array( $this, 'load_page' ) );
-		add_action( 'load-languages_page_mlang_strings',  array( $this, 'load_page_strings' ) );
+		add_action( 'load-toplevel_page_mlang', array( $this, 'load_page' ) );
+		add_action( 'load-languages_page_mlang_strings', array( $this, 'load_page_strings' ) );
 
 		// saves per-page value in screen option
 		add_filter( 'set-screen-option', array( $this, 'set_screen_option' ), 10, 3 );
@@ -137,9 +137,9 @@ class PLL_Settings extends PLL_Admin_Base {
 	 *
 	 * @since 0.9.5
 	 *
-	 * @param	mixed  $status false or value returned by previous filter
-	 * @param	string $option Name of the option being changed
-	 * @param	string $value  Value of the option
+	 * @param mixed  $status false or value returned by previous filter
+	 * @param string $option Name of the option being changed
+	 * @param string $value  Value of the option
 	 *
 	 * @return string New value if this is our option, otherwise nothing
 	 */
@@ -171,7 +171,7 @@ class PLL_Settings extends PLL_Admin_Base {
 					wp_clean_plugins_cache();
 				}
 				self::redirect(); // to refresh the page ( possible thanks to the $_GET['noheader']=true )
-			break;
+				break;
 
 			case 'delete':
 				check_admin_referer( 'delete-lang' );
@@ -181,13 +181,13 @@ class PLL_Settings extends PLL_Admin_Base {
 				}
 
 				self::redirect(); // to refresh the page ( possible thanks to the $_GET['noheader']=true )
-			break;
+				break;
 
 			case 'update':
 				check_admin_referer( 'add-lang', '_wpnonce_add-lang' );
 				$error = $this->model->update_language( $_POST );
 				self::redirect(); // to refresh the page ( possible thanks to the $_GET['noheader']=true )
-			break;
+				break;
 
 			case 'default-lang':
 				check_admin_referer( 'default-lang' );
@@ -197,7 +197,7 @@ class PLL_Settings extends PLL_Admin_Base {
 				}
 
 				self::redirect(); // to refresh the page ( possible thanks to the $_GET['noheader']=true )
-			break;
+				break;
 
 			case 'content-default-lang':
 				check_admin_referer( 'content-default-lang' );
@@ -212,19 +212,19 @@ class PLL_Settings extends PLL_Admin_Base {
 				}
 
 				self::redirect(); // to refresh the page ( possible thanks to the $_GET['noheader']=true )
-			break;
+				break;
 
 			case 'activate':
 				check_admin_referer( 'pll_activate' );
 				$this->modules[ $_GET['module'] ]->activate();
 				self::redirect();
-			break;
+				break;
 
 			case 'deactivate':
 				check_admin_referer( 'pll_deactivate' );
 				$this->modules[ $_GET['module'] ]->deactivate();
 				self::redirect();
-			break;
+				break;
 
 			default:
 				/**
@@ -233,7 +233,7 @@ class PLL_Settings extends PLL_Admin_Base {
 				 * @since 1.8
 				 */
 				do_action( "mlang_action_$action" );
-			break;
+				break;
 		}
 	}
 
@@ -249,12 +249,12 @@ class PLL_Settings extends PLL_Admin_Base {
 				// prepare the list table of languages
 				$list_table = new PLL_Table_Languages();
 				$list_table->prepare_items( $this->model->get_languages_list() );
-			break;
+				break;
 
 			case 'strings':
 				$string_table = new PLL_Table_String( $this->model->get_languages_list() );
 				$string_table->prepare_items();
-			break;
+				break;
 		}
 
 		// handle user input
@@ -277,7 +277,7 @@ class PLL_Settings extends PLL_Admin_Base {
 
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_script( 'pll_admin',  plugins_url( '/js/admin' . $suffix . '.js', POLYLANG_FILE ), array( 'jquery', 'wp-ajax-response', 'postbox', 'jquery-ui-selectmenu' ), POLYLANG_VERSION );
+		wp_enqueue_script( 'pll_admin', plugins_url( '/js/admin' . $suffix . '.js', POLYLANG_FILE ), array( 'jquery', 'wp-ajax-response', 'postbox', 'jquery-ui-selectmenu' ), POLYLANG_VERSION );
 		wp_localize_script( 'pll_admin', 'pll_flag_base_url', plugins_url( '/flags/', POLYLANG_FILE ) );
 
 		wp_enqueue_style( 'pll_selectmenu', plugins_url( '/css/selectmenu' . $suffix . '.css', POLYLANG_FILE ), array(), POLYLANG_VERSION );
@@ -289,7 +289,7 @@ class PLL_Settings extends PLL_Admin_Base {
 	 * @since 1.8
 	 */
 	public function notice_objects_with_no_lang() {
-		if ( ! empty( $this->options['default_lang'] ) && $this->model->get_objects_with_no_lang() ) {
+		if ( ! empty( $this->options['default_lang'] ) && $this->model->get_objects_with_no_lang( 1 ) ) {
 			printf(
 				'<div class="error"><p>%s <a href="%s">%s</a></p></div>',
 				esc_html__( 'There are posts, pages, categories or tags without language.', 'polylang' ),
@@ -313,7 +313,7 @@ class PLL_Settings extends PLL_Admin_Base {
 			$args['settings-updated'] = 1;
 		}
 		// remove possible 'pll_action' and 'lang' query args from the referer before redirecting
-		wp_safe_redirect( add_query_arg( $args,  remove_query_arg( array( 'pll_action', 'lang' ), wp_get_referer() ) ) );
+		wp_safe_redirect( add_query_arg( $args, remove_query_arg( array( 'pll_action', 'lang' ), wp_get_referer() ) ) );
 		exit;
 	}
 }

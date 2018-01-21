@@ -81,6 +81,7 @@ if ( !class_exists( 'UFBL_Model' ) ) {
 		 * @return array
 		 */
 		public static function get_form_detail( $form_id ) {
+		    $form_id = intval(sanitize_text_field($form_id));
 			global $wpdb;
 			$form_table = UFBL_FORM_TABLE;
 			$form_row = $wpdb->get_row( "SELECT * FROM $form_table WHERE form_id = $form_id", ARRAY_A );

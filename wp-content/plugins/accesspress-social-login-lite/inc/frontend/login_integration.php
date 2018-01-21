@@ -1,10 +1,34 @@
 <?php
 defined( 'ABSPATH' ) or die( "No script kiddies please!" );
 $options = get_option( APSL_SETTINGS );
+if ( !empty( $_GET['redirect'] ) )
+    $current_url = $_GET['redirect'];
+else
+$current_url = APSL_Lite_Login_Check_Class::curPageURL();
 
-$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
+if( isset( $options['apsl_custom_login_redirect_options'] ) && $options['apsl_custom_login_redirect_options'] != '' ) {
+    if( $options['apsl_custom_login_redirect_options'] == 'home' ) {
+        $user_login_url = home_url();
+    }
+    else if( $options['apsl_custom_login_redirect_options'] == 'current_page' ) {
+        $user_login_url = $current_url;
+    }
+    else if( $options['apsl_custom_login_redirect_options'] == 'custom_page' ) {
+        if( $options['apsl_custom_login_redirect_link'] != '' ) {
+            $login_page = $options['apsl_custom_login_redirect_link'];
+            $user_login_url = $login_page;
+        }
+        else {
+            $user_login_url = home_url();
+        }
+    }
+}else {
+    $user_login_url = home_url();
+}
 
-$encoded_url = urlencode( $redirect_to );
+// $redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
+
+$encoded_url = urlencode( $user_login_url );
 ?>
 <div class='apsl-login-networks theme-<?php echo $options['apsl_icon_theme']; ?> clearfix'>
     <span class='apsl-login-new-text'><?php echo $options['apsl_title_text_field']; ?></span>
